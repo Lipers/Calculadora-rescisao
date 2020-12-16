@@ -57,7 +57,7 @@ public class FuncionarioServiceImplTest {
         Assertions.assertEquals(1, listaDeFuncionario.size());
     }
 
-     @Test
+    @Test
     void quandoConsultarFuncionarioPorIdDeveriaRetornarFuncionarioEsperado() {
         FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
         when(funcionarioRepository.findById(1L)).thenReturn(Optional.of(new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 100.0, "M")));
@@ -70,17 +70,38 @@ public class FuncionarioServiceImplTest {
         Assertions.assertEquals(Cargo.DESENVOLVEDOR, funcionario.get().getCargo());
         Assertions.assertEquals(100.0, funcionario.get().getSalario());
         Assertions.assertEquals("M", funcionario.get().getSexo());
-     }
+    }
 
-     @Test
+    @Test
     void quandoChamarDeletarDeveriaDeletarTodosOsFuncionarios() {
-         FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
 
-         FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
 
-         funcionarioService.deletarTodos();
+        funcionarioService.deletarTodos();
 
-         verify(funcionarioRepository).deleteAll();
-     }
+        verify(funcionarioRepository).deleteAll();
+    }
+
+
+    @Test
+    void quandoChamarAtualizarDeveriaAtualizar() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M");
+        Funcionario candido = new Funcionario(1L, "Candido", Cargo.ANALISTA, 200000.0, "M");
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+        when(funcionarioRepository.save(same(candido))).thenReturn(candido);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        funcionarioService.atualizar(joao);
+        Funcionario funcionario = funcionarioService.atualizar(candido);
+
+        Assertions.assertEquals(1L, funcionario.getId());
+        Assertions.assertEquals("Candido", funcionario.getNome());
+        Assertions.assertEquals(Cargo.ANALISTA, funcionario.getCargo());
+        Assertions.assertEquals(200000.0, funcionario.getSalario());
+        Assertions.assertEquals("M", funcionario.getSexo());
+    }
 
 }

@@ -38,4 +38,9 @@ public class FuncionarioServiceImpl implements FuncionarioService{
     public void deletarTodos() {
         repository.deleteAll();
     }
+
+    @Override
+    public Funcionario atualizar(Funcionario funcionario) {
+        return repository.save(funcionario);
+    }
 }

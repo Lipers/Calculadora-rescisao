@@ -16,4 +16,6 @@ public interface FuncionarioService {
     Optional<Funcionario> consultarPorID(Long id);
 
     void deletarTodos();
+
+    Funcionario atualizar(Funcionario funcionario);
 }

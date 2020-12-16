@@ -2,7 +2,7 @@ package com.evolui.TDD_Rest_API;
 
 import com.evolui.TDD_Rest_API.enums.Cargo;
 import com.evolui.TDD_Rest_API.model.Funcionario;
-import com.evolui.TDD_Rest_API.repository.FuncionarioRespository;
+import com.evolui.TDD_Rest_API.repository.FuncionarioRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +17,17 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-public class FuncionarioRespositoryTest {
+public class FuncionarioRepositoryTest {
 
     @Autowired
-    private FuncionarioRespository funcionarioRespository;
+    private FuncionarioRepository funcionarioRepository;
 
     @Test
     void quandoSalvarDeveriaRetornarFuncionarioSalvo() {
         Funcionario funcionario = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
-        funcionarioRespository.save(funcionario);
+        funcionarioRepository.save(funcionario);
 
-        Optional<Funcionario> funcionarioSalvo = funcionarioRespository.findById(1L);
+        Optional<Funcionario> funcionarioSalvo = funcionarioRepository.findById(1L);
 
         Assertions.assertTrue(funcionarioSalvo.isPresent());
         Assertions.assertEquals(funcionario, funcionarioSalvo.get());
@@ -37,10 +37,10 @@ public class FuncionarioRespositoryTest {
     void quandoAtualizarDeveriaRetornarFuncionarioAtualizado() {
         Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
         Funcionario felipe = new Funcionario(1L, "Felipe", Cargo.DESENVOLVEDOR, 20500, "M");
-        funcionarioRespository.save(joao);
-        funcionarioRespository.save(felipe);
+        funcionarioRepository.save(joao);
+        funcionarioRepository.save(felipe);
 
-        Optional<Funcionario> funcionarioSalvo = funcionarioRespository.findById(1L);
+        Optional<Funcionario> funcionarioSalvo = funcionarioRepository.findById(1L);
 
         Assertions.assertEquals(felipe, funcionarioSalvo.get());
     }
@@ -49,9 +49,9 @@ public class FuncionarioRespositoryTest {
     void quandoConsultarTodosDeveriaRetornarListaFuncionario() {
         Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
         Funcionario felipe = new Funcionario(2L, "Felipe", Cargo.DESENVOLVEDOR, 20500, "M");
-        funcionarioRespository.saveAll(Arrays.asList(joao, felipe));
+        funcionarioRepository.saveAll(Arrays.asList(joao, felipe));
 
-        List<Funcionario> funcionarios = funcionarioRespository.findAll();
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
 
         Assertions.assertEquals(2, funcionarios.size());
     }
@@ -59,9 +59,9 @@ public class FuncionarioRespositoryTest {
     @Test
     void quandoConsultarPorIdDeveriaRetornarFuncionario() {
         Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
-        funcionarioRespository.save(joao);
+        funcionarioRepository.save(joao);
 
-        Optional<Funcionario> funcionario = funcionarioRespository.findById(1L);
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(1L);
 
         Assertions.assertEquals(joao, funcionario.get());
     }
@@ -69,10 +69,10 @@ public class FuncionarioRespositoryTest {
     @Test
     void quandoDeletarPorIdDeveriaDeletar() {
         Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
-        funcionarioRespository.save(joao);
+        funcionarioRepository.save(joao);
 
-        funcionarioRespository.delete(joao); //TODO: Perguntar pq deleteById nao funcionou
-        Optional<Funcionario> funcionario = funcionarioRespository.findById(1L);
+        funcionarioRepository.delete(joao); //TODO: Perguntar pq deleteById nao funcionou
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(1L);
 
         Assertions.assertFalse(funcionario.isPresent());
     }
@@ -81,10 +81,10 @@ public class FuncionarioRespositoryTest {
     void quandoDeletarTodosDeveriaDeletarTodos() {
         Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
         Funcionario felipe = new Funcionario(2L, "Felipe", Cargo.DESENVOLVEDOR, 20500, "M");
-        funcionarioRespository.saveAll(Arrays.asList(joao, felipe));
+        funcionarioRepository.saveAll(Arrays.asList(joao, felipe));
 
-        funcionarioRespository.deleteAll();
-        List<Funcionario> funcionarios = funcionarioRespository.findAll();
+        funcionarioRepository.deleteAll();
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
 
         Assertions.assertTrue(funcionarios.isEmpty());
     }

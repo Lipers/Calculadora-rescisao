@@ -2,13 +2,12 @@ package com.evolui.TDD_Rest_API;
 
 import com.evolui.TDD_Rest_API.enums.Cargo;
 import com.evolui.TDD_Rest_API.model.Funcionario;
-import com.evolui.TDD_Rest_API.repository.FuncionarioRespository;
+import com.evolui.TDD_Rest_API.repository.FuncionarioRepository;
 import com.evolui.TDD_Rest_API.service.FuncionarioService;
 import com.evolui.TDD_Rest_API.service.FuncionarioServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +22,11 @@ public class FuncionarioServiceImplTest {
 
     @Test
     void quandoSalvarFuncionarioDeveriaSalvar() {
-        FuncionarioRespository funcionarioRespository = mock(FuncionarioRespository.class);
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
         Funcionario funcionario = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M");
-        when(funcionarioRespository.save(same(funcionario))).thenReturn(funcionario);
+        when(funcionarioRepository.save(same(funcionario))).thenReturn(funcionario);
 
-        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRespository);
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
 
         Funcionario funcionarioSalvado = funcionarioService.salvar(funcionario);
 
@@ -35,26 +34,53 @@ public class FuncionarioServiceImplTest {
     }
 
     @Test
-    void quandoDeletarFuncionarioDeveriaDeletarRegistro() {
-        FuncionarioRespository funcionarioRespository = mock(FuncionarioRespository.class);
-        when(funcionarioRespository.findById(1L)).thenReturn(Optional.of(new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M")));
+    void quandoDeletarPorIdFuncionarioDeveriaDeletarRegistro() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        when(funcionarioRepository.findById(1L)).thenReturn(Optional.of(new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M")));
 
-        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRespository);
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
 
-        funcionarioService.delete(1L);
+        funcionarioService.deletePorId(1L);
 
-        verify(funcionarioRespository).deleteById(1L);
+        verify(funcionarioRepository).deleteById(1L);
     }
 
     @Test
-    void quandoVisualizarFuncionarioDeveriaRetornarListaDeUsuarios() {
-        FuncionarioRespository funcionarioRespository = mock(FuncionarioRespository.class);
-        when(funcionarioRespository.findAll()).thenReturn(Arrays.asList((new Funcionario())));
+    void quandoConsultarFuncionarioDeveriaRetornarListaDeFuncionario() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        when(funcionarioRepository.findAll()).thenReturn(Arrays.asList((new Funcionario())));
 
-        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRespository);
-        List<Funcionario> listaDeFuncionario = funcionarioService.visualizar();
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+        List<Funcionario> listaDeFuncionario = funcionarioService.consultar();
 
         Assertions.assertFalse(listaDeFuncionario.isEmpty());
         Assertions.assertEquals(1, listaDeFuncionario.size());
     }
+
+     @Test
+    void quandoConsultarFuncionarioPorIdDeveriaRetornarFuncionarioEsperado() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        when(funcionarioRepository.findById(1L)).thenReturn(Optional.of(new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 100.0, "M")));
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+        Optional<Funcionario> funcionario = funcionarioService.consultarPorID(1L);
+
+        Assertions.assertEquals(1L, funcionario.get().getId());
+        Assertions.assertEquals("João", funcionario.get().getNome());
+        Assertions.assertEquals(Cargo.DESENVOLVEDOR, funcionario.get().getCargo());
+        Assertions.assertEquals(100.0, funcionario.get().getSalario());
+        Assertions.assertEquals("M", funcionario.get().getSexo());
+     }
+
+     @Test
+    void quandoChamarDeletarDeveriaDeletarTodosOsFuncionarios() {
+         FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+
+         FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+         funcionarioService.deletarTodos();
+
+         verify(funcionarioRepository).deleteAll();
+     }
+
 }

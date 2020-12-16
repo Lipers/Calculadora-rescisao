@@ -49,4 +49,24 @@ public class Funcionario {
     public int hashCode() {
         return Objects.hash(id, nome, cargo, salario, sexo);
     }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public Cargo getCargo() {
+        return this.cargo;
+    }
+
+    public double getSalario() {
+        return this.salario;
+    }
+
+    public String getSexo() {
+        return this.sexo;
+    }
 }

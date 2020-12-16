@@ -7,8 +7,15 @@ import com.evolui.TDD_Rest_API.service.FuncionarioService;
 import com.evolui.TDD_Rest_API.service.FuncionarioServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.sql.Array;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
@@ -25,5 +32,29 @@ public class FuncionarioServiceImplTest {
         Funcionario funcionarioSalvado = funcionarioService.salvar(funcionario);
 
         Assertions.assertEquals(funcionario, funcionarioSalvado);
+    }
+
+    @Test
+    void quandoDeletarFuncionarioDeveriaDeletarRegistro() {
+        FuncionarioRespository funcionarioRespository = mock(FuncionarioRespository.class);
+        when(funcionarioRespository.findById(1L)).thenReturn(Optional.of(new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M")));
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRespository);
+
+        funcionarioService.delete(1L);
+
+        verify(funcionarioRespository).deleteById(1L);
+    }
+
+    @Test
+    void quandoVisualizarFuncionarioDeveriaRetornarListaDeUsuarios() {
+        FuncionarioRespository funcionarioRespository = mock(FuncionarioRespository.class);
+        when(funcionarioRespository.findAll()).thenReturn(Arrays.asList((new Funcionario())));
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRespository);
+        List<Funcionario> listaDeFuncionario = funcionarioService.visualizar();
+
+        Assertions.assertFalse(listaDeFuncionario.isEmpty());
+        Assertions.assertEquals(1, listaDeFuncionario.size());
     }
 }

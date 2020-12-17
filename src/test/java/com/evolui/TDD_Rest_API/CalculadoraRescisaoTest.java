@@ -23,6 +23,7 @@ public class CalculadoraRescisaoTest {
         LocalDate dataInicioContrato = LocalDate.of(2019, Month.JANUARY, 01);
         LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);
         boolean fezAvisoPrevio = true;
+        boolean mesIndenizado = true;
         double ferias = calculadoraRescisao.calcularRescisao(joao.getSalario(), dataInicioContrato, dataFimContrato, fezAvisoPrevio);
         double valorFerias = calculadoraFeriasRescisao.calcularFeriasNaoProporcionais(joao.getSalario());
 

@@ -4,5 +4,5 @@ import java.time.LocalDate;
 
 public interface CalculadoraRescisao {
 
-    public double calcularRescisao(double salario, LocalDate dataInicioContrato, LocalDate dataFimContrato, boolean avisoCumprido);
+    double calcularRescisao(double salario, LocalDate dataInicioContrato, LocalDate dataFimContrato, boolean fezAvisoPrevio);
 }

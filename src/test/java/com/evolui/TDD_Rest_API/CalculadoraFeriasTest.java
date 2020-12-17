@@ -35,14 +35,28 @@ public class CalculadoraFeriasTest {
     }
 
     @Test
-    void quandoCalcularFeriasProporcionaisDeveriaRetornarValorCalculado() {
+    void quandoCalcularFeriasProporcionaisComFeriasIndenizadasDeveriaRetornarValorCalculado() {
         CalculadoraFeriasProporcionais calculadoraFeriasProporcionais = new CalculadoraFeriasProporcionais();
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 4000, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500, "M");
 
-        LocalDate dataInicioContrato = LocalDate.of(2019, Month.JANUARY, 01);
-        LocalDate dataFimContrato = LocalDate.of(2019, Month.APRIL, 14);
-        double ferias = calculadoraFeriasProporcionais.calcularFeriasProporcionais(joao.getSalario(), dataInicioContrato, dataFimContrato);
+        LocalDate dataInicioContrato = LocalDate.of(2020, Month.JANUARY, 01);
+        LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);
+        double ferias = calculadoraFeriasProporcionais.calcularFeriasProporcionais(joao.getSalario(), dataInicioContrato, dataFimContrato, true);
 
-        Assertions.assertEquals(666.67, ferias);
+        Assertions.assertEquals(1666.67, ferias);
     }
+
+    @Test
+    void quandoCalcularFeriasProporcionaisSemFeriasIndenizadasDeveriaRetornarValorCalculado() {
+        CalculadoraFeriasProporcionais calculadoraFeriasProporcionais = new CalculadoraFeriasProporcionais();
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500, "M");
+
+        LocalDate dataInicioContrato = LocalDate.of(2020, Month.JANUARY, 01);
+        LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);
+        double ferias = calculadoraFeriasProporcionais.calcularFeriasProporcionais(joao.getSalario(), dataInicioContrato, dataFimContrato, false);
+
+        Assertions.assertEquals(1388.89, ferias);
+    }
+
+
 }

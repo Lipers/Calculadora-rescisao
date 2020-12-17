@@ -6,15 +6,21 @@ import java.time.temporal.ChronoUnit;
 public class CalculadoraRescisaoSemJustaCausa implements CalculadoraRescisao {
 
 
-    public double calcularRescisao(double salario, LocalDate dataInicioContrato, LocalDate dataFimContrato, boolean avisoCumprido) {
+    public double calcularRescisao(double salario, LocalDate dataInicioContrato, LocalDate dataFimContrato,
+                                   boolean avisoCumpridoOuIndenizado) {
+        double avisoCumpridoOuIndenizadoValorAdicional = 0;
 
         long anosTrabalhados = ChronoUnit.YEARS.between(dataInicioContrato, dataFimContrato);
 
-        double AVI = 0;
-
-        if (avisoCumprido) {
-            AVI = salario * ((anosTrabalhados * 3) + 30) / 30;
+        if (avisoCumpridoOuIndenizado) {
+            int mesAviso = 1;
+            float ano = 12f;
+            avisoCumpridoOuIndenizadoValorAdicional = (mesAviso / ano) * salario;
         }
+
+
+
+
 
         int diasTrabalhadosUltimoMes = 18;
         int diasMes = 30;

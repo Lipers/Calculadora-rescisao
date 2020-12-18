@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
+import static com.evolui.TDD_Rest_API.Util.FormatadorUtil.formatarParaDoubleDaStringComVirgula;
+
 public class CalculadoraFeriasProporcionais {
 
     public double calcularFeriasProporcionais(double salario, LocalDate dataInicioContrato, LocalDate dataFimContrato, boolean feriasIndenizadas) {
@@ -26,19 +28,4 @@ public class CalculadoraFeriasProporcionais {
 
         return formatarParaDoubleDaStringComVirgula(feriasProporcionais);
     }
-
-    private double formatarParaDoubleDaStringComVirgula(double ferias) {
-        DecimalFormat df = new DecimalFormat("##.00");
-        NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
-        Number number = null;
-
-        try {
-            number = format.parse(df.format(ferias));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return number.doubleValue();
-    }
-
 }

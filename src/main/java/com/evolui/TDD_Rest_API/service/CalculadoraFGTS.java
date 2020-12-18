@@ -1,5 +1,7 @@
 package com.evolui.TDD_Rest_API.service;
 
+import com.evolui.TDD_Rest_API.Util.CalculadoraAvisoPrevioIndenizadoUtil;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
@@ -16,20 +18,10 @@ public class CalculadoraFGTS {
 
         double valorMesesCheios = 0.08 * quantidadeMesesTrabalhados * salario;
 
-        double valorDiasFracionados = 0.08 * salario * (dataFimContrato.getDayOfMonth() / 30f) ;
+        double valorDiasFracionados = 0.08 * salario * (dataFimContrato.getDayOfMonth() / 30f);
 
-        System.out.println(valorDiasFracionados);
+        double valorAvisoPrevioIndenizatorio = 0.08 * CalculadoraAvisoPrevioIndenizadoUtil.calcular(salario, dataInicioContrato, dataFimContrato);
 
         return valorMesesCheios;
     }
 }
-
-//        double diasDoMesFracionado = 0.08 * quantidadeMesesTrabalhados * salario;
-
-//         if(dataInicioContrato.getDayOfMonth() != 01) {
-//            double valorProporcionalDataInicio = 0.08 * salario * (dataInicioContrato.getDayOfMonth() / 30f);
-//        }
-//
-//        if(dataFimContrato.getDayOfMonth() >= 28) {
-//            double valorProporcionalDataFim = 0.08 * salario * (dataInicioContrato.getDayOfMonth() / 30f);
-//        }

@@ -18,10 +18,6 @@ public class CalculadoraRescisaoSemJustaCausa implements CalculadoraRescisao {
             avisoCumpridoOuIndenizadoValorAdicional = (mesAviso / ano) * salario;
         }
 
-
-
-
-
         int diasTrabalhadosUltimoMes = 18;
         int diasMes = 30;
         double saldoSalario = salario / diasMes * diasTrabalhadosUltimoMes;

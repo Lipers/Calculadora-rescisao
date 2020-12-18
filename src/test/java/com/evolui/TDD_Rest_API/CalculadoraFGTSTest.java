@@ -15,7 +15,7 @@ public class CalculadoraFGTSTest {
     void quandoCalcularFGTSEmRescisaoDeveriaRetornarValorCalculado(){
         CalculadoraFGTS calculadoraFGTS = new CalculadoraFGTS();
         Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500, "M");
-        LocalDate dataInicioContrato = LocalDate.of(2020, Month.JANUARY, 01);
+        LocalDate dataInicioContrato = LocalDate.of(2019, Month.JANUARY, 01);
         LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);
 
         boolean avisoCumpridoOuMesIndenizado = true;

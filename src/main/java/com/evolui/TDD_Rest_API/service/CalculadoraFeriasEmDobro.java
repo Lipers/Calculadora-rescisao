@@ -1,9 +1,6 @@
 package com.evolui.TDD_Rest_API.service;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Locale;
+import static com.evolui.TDD_Rest_API.Util.FormatadorUtil.formatarParaDoubleDaStringComVirgula;
 
 public class CalculadoraFeriasEmDobro implements CalculadoraFeriasIntegral {
 
@@ -17,17 +14,4 @@ public class CalculadoraFeriasEmDobro implements CalculadoraFeriasIntegral {
         return ferias  * valorAdicional;
     }
 
-    private double formatarParaDoubleDaStringComVirgula(double ferias) {
-        DecimalFormat df = new DecimalFormat("##.00");
-        NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
-        Number number = null;
-
-        try {
-            number = format.parse(df.format(ferias));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return number.doubleValue();
-    }
 }

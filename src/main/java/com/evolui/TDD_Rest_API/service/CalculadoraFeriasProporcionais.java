@@ -1,13 +1,9 @@
 package com.evolui.TDD_Rest_API.service;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Locale;
 
-import static com.evolui.TDD_Rest_API.Util.FormatadorUtil.formatarParaDoubleDaStringComVirgula;
+import static com.evolui.TDD_Rest_API.Util.FormatadorUtil.arredondaApartirDaTerceiraCasaDecimal;
 
 public class CalculadoraFeriasProporcionais {
 
@@ -26,6 +22,6 @@ public class CalculadoraFeriasProporcionais {
 
         double feriasProporcionais = quantidadeMesesTrabalhados / 12f * (salario + (salario * 1 / 3)) + feriasIndenizadasAdicional;
 
-        return formatarParaDoubleDaStringComVirgula(feriasProporcionais);
+        return arredondaApartirDaTerceiraCasaDecimal(feriasProporcionais);
     }
 }

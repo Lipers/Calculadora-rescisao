@@ -16,13 +16,26 @@ public class CalculadoraDecimoTerceiroTest {
     void quandoCalcularDecimoTerceiroSalarioDeveriaRetornarValorCalculado() {
         CalculadoraDecimoTerceiro calculadoDecimoTerceiro = new CalculadoraDecimoTerceiro();
 
-        Funcionario funcionario = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500, "M");
+        Funcionario funcionario = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500.0, "M");
         LocalDate dataInicioContrato = LocalDate.of(2019, Month.JANUARY, 01);
         LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);
 
-        double decimoTerceiro = calculadoDecimoTerceiro.calcularDecimoTerceiro(funcionario.getSalario(), dataInicioContrato, dataFimContrato);
+        double decimoTerceiroProporcional = calculadoDecimoTerceiro.calcularDecimoTerceiro(funcionario.getSalario(), dataInicioContrato, dataFimContrato);
 
-        Assertions.assertEquals(1250.0, decimoTerceiro);
+        Assertions.assertEquals(1041.67, decimoTerceiroProporcional);
+    }
+
+    @Test
+    void quandoCalcularDecimoTerceiroSalarioIndenizadoDeveriaRetornarValorCalculado() {
+        CalculadoraDecimoTerceiro calculadoDecimoTerceiro = new CalculadoraDecimoTerceiro();
+
+        Funcionario funcionario = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500.0, "M");
+        LocalDate dataInicioContrato = LocalDate.of(2020, Month.JANUARY, 01);
+        LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);
+
+        double decimoTerceiroProporcional = calculadoDecimoTerceiro.calcularDecimoTerceiroIndenizado(funcionario.getSalario(), dataInicioContrato, dataFimContrato);
+
+        Assertions.assertEquals(208.33, decimoTerceiroProporcional);
     }
 
 }

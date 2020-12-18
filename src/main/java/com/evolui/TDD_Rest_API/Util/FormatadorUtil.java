@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public final class FormatadorUtil {
 
-    public static double formatarParaDoubleDaStringComVirgula(double ferias) {
+    public static double arredondaApartirDaTerceiraCasaDecimal(double ferias) {
         DecimalFormat df = new DecimalFormat("##.00");
         NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
         Number number = null;

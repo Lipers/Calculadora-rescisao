@@ -24,7 +24,7 @@ public class FuncionarioRepositoryTest {
 
     @Test
     void quandoSalvarDeveriaRetornarFuncionarioSalvo() {
-        Funcionario funcionario = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
+        Funcionario funcionario = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000.0, "M");
         funcionarioRepository.save(funcionario);
 
         Optional<Funcionario> funcionarioSalvo = funcionarioRepository.findById(1L);
@@ -35,8 +35,8 @@ public class FuncionarioRepositoryTest {
 
     @Test
     void quandoAtualizarDeveriaRetornarFuncionarioAtualizado() {
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
-        Funcionario felipe = new Funcionario(1L, "Felipe", Cargo.DESENVOLVEDOR, 20500, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000.0, "M");
+        Funcionario felipe = new Funcionario(1L, "Felipe", Cargo.DESENVOLVEDOR, 20500.0, "M");
         funcionarioRepository.save(joao);
         funcionarioRepository.save(felipe);
 
@@ -47,8 +47,8 @@ public class FuncionarioRepositoryTest {
 
     @Test
     void quandoConsultarTodosDeveriaRetornarListaFuncionario() {
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
-        Funcionario felipe = new Funcionario(2L, "Felipe", Cargo.DESENVOLVEDOR, 20500, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000.0, "M");
+        Funcionario felipe = new Funcionario(2L, "Felipe", Cargo.DESENVOLVEDOR, 20500.0, "M");
         funcionarioRepository.saveAll(Arrays.asList(joao, felipe));
 
         List<Funcionario> funcionarios = funcionarioRepository.findAll();
@@ -58,7 +58,7 @@ public class FuncionarioRepositoryTest {
 
     @Test
     void quandoConsultarPorIdDeveriaRetornarFuncionario() {
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000.0, "M");
         funcionarioRepository.save(joao);
 
         Optional<Funcionario> funcionario = funcionarioRepository.findById(1L);
@@ -68,7 +68,7 @@ public class FuncionarioRepositoryTest {
 
     @Test
     void quandoDeletarPorIdDeveriaDeletar() {
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000.0, "M");
         funcionarioRepository.save(joao);
 
         funcionarioRepository.delete(joao); //TODO: Perguntar pq deleteById nao funcionou
@@ -79,8 +79,8 @@ public class FuncionarioRepositoryTest {
 
     @Test
     void quandoDeletarTodosDeveriaDeletarTodos() {
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000, "M");
-        Funcionario felipe = new Funcionario(2L, "Felipe", Cargo.DESENVOLVEDOR, 20500, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 10000.0, "M");
+        Funcionario felipe = new Funcionario(2L, "Felipe", Cargo.DESENVOLVEDOR, 20500.0, "M");
         funcionarioRepository.saveAll(Arrays.asList(joao, felipe));
 
         funcionarioRepository.deleteAll();

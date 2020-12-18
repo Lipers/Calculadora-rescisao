@@ -11,8 +11,9 @@ public class CalculadoraTempoTrabalhado {
     }
 
     public double calculaMesesTrabalhados(LocalDate dataInicioContrato, LocalDate dataFimContrato) {
-        return ChronoUnit.MONTHS.between(dataInicioContrato, dataFimContrato);
-
+        if (ChronoUnit.DAYS.between(dataInicioContrato, dataFimContrato) < 28)
+            return ChronoUnit.MONTHS.between(dataInicioContrato, dataFimContrato);
+        return ChronoUnit.MONTHS.between(dataInicioContrato, dataFimContrato) + 1;
     }
 
     public double calculaDiasProporcionaisTrabalhadosNoMes(LocalDate dataInicioContrato, LocalDate dataFimContrato) {

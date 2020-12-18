@@ -21,7 +21,7 @@ public class Funcionario {
     private Cargo cargo;
 
     @Column(name = "salario")
-    private double salario;
+    private Double salario;
 
     @Column(name = "sexo")
     private String sexo;
@@ -29,7 +29,7 @@ public class Funcionario {
     public Funcionario() {
     }
 
-    public Funcionario(Long id, String nome, Cargo cargo, double salario, String sexo) {
+    public Funcionario(Long id, String nome, Cargo cargo, Double salario, String sexo) {
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
@@ -62,7 +62,7 @@ public class Funcionario {
         return this.cargo;
     }
 
-    public double getSalario() {
+    public Double getSalario() {
         return this.salario;
     }
 

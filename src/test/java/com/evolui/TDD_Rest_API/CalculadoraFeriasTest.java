@@ -17,7 +17,7 @@ public class CalculadoraFeriasTest {
     @Test
     void quandoCalcularFeriasSimplesDeveriaRetornarValorCalculado() {
         CalculadoraFeriasIntegral calculadoraFeriasSimples = new CalculadoraFeriasSimples();
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 4000, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 4000.0, "M");
 
         double ferias = calculadoraFeriasSimples.calcularFeriasNaoProporcionais(joao.getSalario());
 
@@ -27,7 +27,7 @@ public class CalculadoraFeriasTest {
     @Test
     void quandoCalcularFeriasEmDobroDeveriaRetornarValorCalculado() {
         CalculadoraFeriasIntegral calculadoraFeriasEmDobro = new CalculadoraFeriasEmDobro();
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500.0, "M");
 
         double ferias = calculadoraFeriasEmDobro.calcularFeriasNaoProporcionais(joao.getSalario());
 
@@ -37,7 +37,7 @@ public class CalculadoraFeriasTest {
     @Test
     void quandoCalcularFeriasProporcionaisComFeriasIndenizadasDeveriaRetornarValorCalculado() {
         CalculadoraFeriasProporcionais calculadoraFeriasProporcionais = new CalculadoraFeriasProporcionais();
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500.0, "M");
 
         LocalDate dataInicioContrato = LocalDate.of(2020, Month.JANUARY, 01);
         LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);
@@ -49,7 +49,7 @@ public class CalculadoraFeriasTest {
     @Test
     void quandoCalcularFeriasProporcionaisSemFeriasIndenizadasDeveriaRetornarValorCalculado() {
         CalculadoraFeriasProporcionais calculadoraFeriasProporcionais = new CalculadoraFeriasProporcionais();
-        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500, "M");
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 2500.0, "M");
 
         LocalDate dataInicioContrato = LocalDate.of(2020, Month.JANUARY, 01);
         LocalDate dataFimContrato = LocalDate.of(2020, Month.MAY, 18);

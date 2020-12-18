@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -83,7 +85,6 @@ public class FuncionarioServiceImplTest {
         verify(funcionarioRepository).deleteAll();
     }
 
-
     @Test
     void quandoChamarAtualizarDeveriaAtualizar() {
         FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
@@ -104,4 +105,154 @@ public class FuncionarioServiceImplTest {
         Assertions.assertEquals("M", funcionario.getSexo());
     }
 
+    @Test
+    void quandoChamarAtualizarDeveriaValidarSeNomeEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M");
+        Funcionario candido = new Funcionario(1L, "", Cargo.DESENVOLVEDOR, 20000.0, "M");
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+        when(funcionarioRepository.save(same(candido))).thenReturn(candido);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        funcionarioService.salvar(joao);
+
+        try {
+            funcionarioService.atualizar(candido);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Nome do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
+
+
+    @Test
+    void quandoChamarAtualizarDeveriaValidarSeSalarioEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M");
+        Funcionario candido = new Funcionario(1L, "Candido", Cargo.DESENVOLVEDOR, null, "M");
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+        when(funcionarioRepository.save(same(candido))).thenReturn(candido);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        funcionarioService.salvar(joao);
+
+        try {
+            funcionarioService.atualizar(candido);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Salário do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
+
+
+    @Test
+    void quandoChamarAtualizarDeveriaValidarSeCargoEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M");
+        Funcionario candido = new Funcionario(1L, "Candido", null, 20000.0, "M");
+
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+        when(funcionarioRepository.save(same(candido))).thenReturn(candido);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        funcionarioService.salvar(joao);
+
+        try {
+            funcionarioService.atualizar(candido);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Cargo do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
+
+
+
+    @Test
+    void quandoChamarAtualizarDeveriaValidarSeSexoEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M");
+        Funcionario candido = new Funcionario(1L, "Candido", Cargo.DESENVOLVEDOR, 20000.0, "");
+
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+        when(funcionarioRepository.save(same(candido))).thenReturn(candido);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        funcionarioService.salvar(joao);
+
+        try {
+            funcionarioService.atualizar(candido);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Sexo do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
+
+
+    @Test
+    void quandoChamarSalvarDeveriaValidarSeNomeEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "", Cargo.DESENVOLVEDOR, 20000.0, "M");
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        try {
+            funcionarioService.salvar(joao);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Nome do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
+
+    @Test
+    void quandoChamarSalvarDeveriaValidarSeSalarioEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, null, "M");
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        try {
+            funcionarioService.salvar(joao);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Salário do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
+
+    @Test
+    void quandoChamarSalvarDeveriaValidarSeCargoEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", null, 20000.0, "M");
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        try {
+            funcionarioService.salvar(joao);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Cargo do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
+
+    @Test
+    void quandoChamarSalvarDeveriaValidarSeSexoEstaPreenchido() {
+        FuncionarioRepository funcionarioRepository = mock(FuncionarioRepository.class);
+        Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "");
+        when(funcionarioRepository.save(same(joao))).thenReturn(joao);
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl(funcionarioRepository);
+
+        try {
+            funcionarioService.salvar(joao);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Sexo do funcionário precisa estar preenchido", e.getMessage());
+        }
+    }
 }

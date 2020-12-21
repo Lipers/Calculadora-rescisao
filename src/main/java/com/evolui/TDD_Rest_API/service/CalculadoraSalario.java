@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class CalculadoraSalario {
 
-    public double calcularSalario(Double salario, Integer quantidadeTrabalho) {
+    public double calcularSaldoSalario(Double salario, long quantidadeTrabalho) {
         return (salario / 30) * quantidadeTrabalho;
     }
 

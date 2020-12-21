@@ -27,6 +27,8 @@ public class CalculadoraRescisaoTest {
         double ferias = calculadoraRescisao.calcularRescisao(joao.getSalario(), dataInicioContrato, dataFimContrato, fezAvisoPrevio);
         double valorFerias = calculadoraFeriasRescisao.calcularFeriasNaoProporcionais(joao.getSalario());
 
+        //TODO: CALCULADORA RESCISAO JUSTA CAUSA
+
         Assertions.assertEquals( 11115.23, ferias);
     }
 

@@ -13,7 +13,7 @@ public class CalculadoraSalarioTest {
         CalculadoraSalario calculadoraSalario = new CalculadoraSalario();
         Funcionario joao = new Funcionario(1L, "João", Cargo.DESENVOLVEDOR, 20000.0, "M");
 
-        double salario = calculadoraSalario.calcularSalario(joao.getSalario(), 15);
+        double salario = calculadoraSalario.calcularSaldoSalario(joao.getSalario(), 15);
 
         Assertions.assertEquals(10000.0, salario);
     }
